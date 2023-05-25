@@ -212,7 +212,7 @@
 
                                 <div class="add-fields" >
                                     <div style="float:left;">
-                                        <p class="add btn btn-warning" style="border: none; cursor:pointer"><i class="bi bi-plus"></i>
+                                        <p class="add btn btn-warning" role="button" style="border: none; cursor:pointer"><i class="bi bi-plus"></i>
                                         </p>
                                     </div>
                                 </div>

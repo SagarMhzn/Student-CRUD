@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Create Student Form') }}</div>
+                    <div class="card-header">{{ __('Edit Student Form') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -345,14 +345,15 @@
 
                             $(document).ready(function() {
 
-                                var Fields = 1;
+
+                                var Fields = {{ count($education_data) }};
                                 var maxFields = 5;
 
 
 
                                 $(".add").on('click', function() {
                                     if (Fields < 5) {
-                                        console.log("field pressed")
+                                        
                                         Fields++;
                                         $('.table tr:last').after(
                                             `<tr>
@@ -381,7 +382,7 @@
                                         alert("max fields reached");
                                     }
 
-                                    console.log(Fields);
+                                    
                                 });
 
                                 $(".table").on('click', '.remove_row', function() {
@@ -392,7 +393,7 @@
                                         alert("There needs to be atleast one batch of education infos!");
                                     }
 
-                                    console.log(Fields);
+                                    
                                 });
                             });
                         </script>

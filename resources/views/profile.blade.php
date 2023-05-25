@@ -18,19 +18,24 @@
 
                             <div>
 
-                                <div class="student_profile" style="display:flex">
+                                <div class="student_profile" >
 
 
 
-                                    <div class="student_info" style="margin:2rem">
+                                    <div class="student_info" style="margin:2rem; margin-bottom: 2rem;">
+                                        <div style="display: flex; justify-content:space-between">
+                                            <p>Current name:</p>
+                                            <div class="student-name" style="font-size: 30px; line-height: 20px;">
+                                                {{ auth()->user()->name }}
+                                            </div>
+                                            <p>Current E-mail:</p>
+                                            <div class="student-name" style="font-size: 30px; line-height: 20px;">
+                                                {{ auth()->user()->email }}
+                                            </div>
 
-                                        <div class="student-name" style="font-size: 30px">
-                                            {{ auth()->user()->name }}
                                         </div>
 
-                                        <div class="student-name" style="font-size: 30px">
-                                            {{ auth()->user()->email }}
-                                        </div>
+                                        <hr>
 
                                         <div>
                                             <h1>Update Profile</h1>
@@ -46,48 +51,55 @@
                                                 @method('put')
 
                                                 <div class="mb-3">
+                                                    Name :
                                                     <input type="text" class="form-control"
-                                                        value="{{ auth()->user()->name }}" name="name">
+                                                        value="{{ auth()->user()->name }}" name="name"
+                                                        placeholder="Enter your name">
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    E-mail
                                                     <input type="email" class="form-control"
-                                                        value="{{ auth()->user()->email }}" name="email">
+                                                        value="{{ auth()->user()->email }}" name="email"
+                                                        placeholder="Enter your email">
                                                 </div>
 
                                                 <button class="btn btn-primary"> Submit</button>
                                             </form>
 
                                         </div>
+                                    </div>
+                                    <div class="update-password" style="margin:2rem; margin-bottom: 2rem;">
+                                        <h1>Update Password</h1>
 
-                                        <div>
-                                            <h1>Update Password</h1>
-                                            
-                                            <form action="/password-update" method="post">
+                                        <form action="/password-update" method="post">
 
 
-                                                @csrf
-                                                @method('put')
+                                            @csrf
+                                            @method('put')
 
-                                                <div class="mb-3">
-                                                    <input type="password" class="form-control" required placeholder="old password"
-                                                         name="old_password">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="password" class="form-control" required  placeholder="new-password"
-                                                         name="password" >
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="password" class="form-control" required placeholder="confirm password"
-                                                         name="password_confirmation">
-                                                </div>
-                                                
+                                            <div class="mb-3">
+                                                Old Password :
+                                                <input type="password" class="form-control" required
+                                                    placeholder="old password" name="old_password">
+                                            </div>
+                                            <div class="mb-3">
+                                                New Password :
+                                                <input type="password" class="form-control" required
+                                                    placeholder="new-password" name="password">
+                                            </div>
+                                            <div class="mb-3">
+                                                Re-enter new password :
+                                                <input type="password" class="form-control" required
+                                                    placeholder="confirm password" name="password_confirmation">
+                                            </div>
 
-                                                <button class="btn btn-primary"> Update</button>
-                                            </form>
 
-                                        </div>
-                                        {{-- <h4 style="text-decoration:underline">Contact Info</h4>
+                                            <button class="btn btn-primary"> Update</button>
+                                        </form>
+
+                                    </div>
+                                    {{-- <h4 style="text-decoration:underline">Contact Info</h4>
                                         <div class="contact-info" style="font-size: 15px; ">
                                             <h5>{{ $data->email }}</h5>
                                             <h5>{{ $data->phone_no }}</h5>
@@ -101,7 +113,7 @@
                                             <h6>DoB : {{ $data->dob }}</h6>
                                         </div> --}}
 
-                                    </div>
+
 
                                 </div>
 

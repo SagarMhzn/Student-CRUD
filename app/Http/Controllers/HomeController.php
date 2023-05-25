@@ -66,7 +66,7 @@ class HomeController extends Controller
 
 
         if (Hash::check($request->old_password, $user->password)) {
-            $user->password =Hash::make($request->password);
+            $user->password = Hash::make($request->password);
             $user->save();
             return redirect()->back();
 
