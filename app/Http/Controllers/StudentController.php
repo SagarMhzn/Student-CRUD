@@ -122,18 +122,12 @@ class StudentController extends Controller
         $student->phone_no = $request->phone_no;
         $student->address = $request->address;
         $student->email = $request->email;
-        // $file = $request->file('image');
-        // $file_name = $file->getClientOriginalName();
-        // $destinationPath = public_path('images/');
-        // $file->move($destinationPath, $file_name);
-
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('public/Image'), $filename);
             $student->image = $filename;
         }
-        // $student->image = $destinationPath . $file_name;
         $student->gender = $request->gender;
         $student->dob = $request->dob;
         $student->save();
@@ -159,9 +153,6 @@ class StudentController extends Controller
         }
         return redirect('/student-profile/'.$student_id);
 
-
-
-        // return redirect(route('add-info'))->with('success',"Student info added sucessfully");
     }
 
     
