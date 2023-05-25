@@ -389,7 +389,7 @@
                                         $(this).closest('tr').remove();
                                         Fields--;
                                     } else {
-                                        alert("There needs to be atleast one batch of education intfos!");
+                                        alert("There needs to be atleast one batch of education infos!");
                                     }
 
                                     console.log(Fields);
