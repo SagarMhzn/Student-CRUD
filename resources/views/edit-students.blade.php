@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -68,38 +67,52 @@
                                 background-color: #04AA6D;
                             }
                         </style>
-                        <form id="regForm" action="{{ route('student.store') }}" method="POST"
+                        <form id="regForm" action="/students-update/{{ $student->id }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <h1>Register:</h1>
+
+                            @method('put')
+                            <h1>Update:</h1>
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <p class="text-danger"> {{ $error }}</p>
+                                @endforeach
+                            @endif
+
 
                             <!-- One "tab" for each step in the form: -->
                             <div class="tab">
                                 <h3>Student Details</h3>
                                 <p>
-                                    <input placeholder="Name" onchange="this.className = ''"  name="name" type="text" class="name">
+                                    <input placeholder="Name" onchange="this.className = ''" name="name" type="text"
+                                        class="name input" value="{{ $student->name }}">
                                     @error('name')
                                         {{ $message }}
                                     @enderror
                                 </p>
-                                <p><input placeholder="Phone No." oninput="this.className = ''" name="phone_no" class="phone_no"
-                                        type="number">
+                                <p><input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
+                                        class="phone_no input" value="{{ $student->phone_no }}" type="number">
                                     @error('phone-no')
                                         {{ $message }} class=""
                                     @enderror
                                 </p>
-                                <p><input placeholder="Address" oninput="this.className = ''" name="address" type="text" class="address">
+                                <p><input placeholder="Address" oninput="this.className = ''" name="address" type="text"
+                                        class="address input" value="{{ $student->address }}">
                                     @error('address')
                                         {{ $message }}
                                     @enderror
                                 </p>
-                                <p><input placeholder="E-mail" oninput="this.className = ''" name="email" type="email" class="email">
+                                <p><input placeholder="E-mail" oninput="this.className = ''" name="email" type="email"
+                                        class="email input" value="{{ $student->email }}">
                                     @error('email')
                                         {{ $message }}
                                     @enderror
                                 </p>
-                                <p>Image<input type="file" class="form-control" name="image" id="image" class="image"
-                                        style="margin-bottom:1rem" accept=".jpg,.gif,.png" />
+
+                                <div><img src="{{ url('public/Image/' . $student->image) }}" width="200px" height="100px"
+                                        alt=""></div>
+                                <p>Image<input type="file" class="form-control" name="image" id="image"
+                                        class="image" style="margin-bottom:1rem" accept=".jpg,.gif,.png" />
                                     @error('image')
                                         {{ $message }}
                                     @enderror
@@ -107,30 +120,32 @@
                                 <p>
                                 <fieldset class="form-group" style="margin-bottom:1rem">
                                     <div class="row">
-                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" id="gender" class="gender">Gender
+                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" id="gender"
+                                            class="gender input" value="{{ $student->gender }}">Gender
                                         </legend>
                                         <div class="col-sm-10">
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="gender"
                                                     id="gridRadios1" value="Male"
-                                                    @if (old('gender') == 'Male')  @endif checked>
+                                                    @if (old('gender') == 'Male')  @endif
+                                                    {{ $student->gender === 'Male' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="gridRadios1">
                                                     Male
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="gender"
-                                                    id="gridRadios2" value="Female"
-                                                    @if (old('gender') == 'Female')  @endif>
+                                                    {{ $student->gender === 'Female' ? 'checked' : '' }} id="gridRadios2"
+                                                    value="Female" @if (old('gender') == 'Female')  @endif>
                                                 <label class="form-check-label" for="gridRadios2">
                                                     Female
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="gender"
-                                                    id="gridRadios3" value="Others"
-                                                    @if (old('gender') == 'Others')  @endif>
+                                                    {{ $student->gender === 'Others' ? 'checked' : '' }} id="gridRadios3"
+                                                    value="Others" @if (old('gender') == 'Others')  @endif>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Rather not disclose
                                                 </label>
@@ -149,8 +164,8 @@
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-2 col-form-label">Date of Birth</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="dob" name="dob" class="dob"
-                                            placeholder="YYYY/MM/DD">
+                                        <input type="date" class="form-control" id="dob" name="dob"
+                                            class="dob input" value="{{ $student->dob }}" placeholder="YYYY/MM/DD">
                                         @error('dob')
                                             {{ $message }}
                                         @enderror
@@ -179,40 +194,58 @@
 
                                         </tr>
                                     </thead>
-                                    <tr>
-                                        <td><input type="text" id="level" name="level[]" class="form-control" class="level"
-                                                placeholder="Level" aria-label="City" style="text-align: center">@error('level')
-                                                {{ $message }}
-                                            @enderror</td>
-                                        <td><input type="text" id="college" name="college[]" class="form-control" class="college"
-                                                placeholder="College" aria-label="State" style="text-align: center">@error('college')
-                                                {{ $message }}
-                                            @enderror</td>
-                                        <td><input type="text" id="uni" name="uni[]" class="form-control" class="uni"
-                                                placeholder="University/Board" aria-label="State"
-                                                style="text-align: center">@error('uni')
-                                                {{ $message }}
-                                            @enderror</td>
-                                        <td><input type="date" class="form-control" id="startdate" class="startdate"
-                                                name="startdate[]">@error('startdate')
-                                                {{ $message }}
-                                            @enderror
-                                        </td>
-                                        <td><input type="date" class="form-control" id="enddate" class="enddate" name="enddate[]">@error('enddate')
-                                            {{ $message }}
-                                        @enderror
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-block btn-danger sa-danger remove_row "><i
-                                                    class="bi bi-trash3"></i></a>
-                                        </td>
-                                    </tr>
+
+                                    @foreach ($education_data as $item)
+                                        <tr>
+                                            <td><input type="text" id="level" name="level[]" class="form-control"
+                                                    class="level input" value="{{ $item->level }}" placeholder="Level"
+                                                    aria-label="City" style="text-align: center">
+                                                @error('level')
+                                                    {{ $message }}
+                                                @enderror
+                                            </td>
+                                            <td><input type="text" id="college" name="college[]"
+                                                    class="form-control" class="college input"
+                                                    value="{{ $item->college }}" placeholder="College"
+                                                    aria-label="State" style="text-align: center">
+                                                @error('college')
+                                                    {{ $message }}
+                                                @enderror
+                                            </td>
+                                            <td><input type="text" id="uni" name="uni[]" class="form-control"
+                                                    class="uni input" value="{{ $item->university }}"
+                                                    placeholder="University/Board" aria-label="State"
+                                                    style="text-align: center">
+                                                @error('uni')
+                                                    {{ $message }}
+                                                @enderror
+                                            </td>
+                                            <td><input type="date" class="form-control" id="startdate"
+                                                    class="startdate input" value="{{ $item->startdate }}"
+                                                    name="startdate[]">
+                                                @error('startdate')
+                                                    {{ $message }}
+                                                @enderror
+                                            </td>
+                                            <td><input type="date" class="form-control" id="enddate"
+                                                    class="enddate input" name="enddate[]" value="{{ $item->enddate }}">
+                                                @error('enddate')
+                                                    {{ $message }}
+                                                @enderror
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-block btn-danger sa-danger remove_row "><i
+                                                        class="bi bi-trash3"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 
-                                <div class="add-fields" >
+                                <div class="add-fields">
                                     <div style="float:left;">
-                                        <p class="add btn btn-warning" style="border: none; cursor:pointer"><i class="bi bi-plus"></i>
+                                        <p class="add btn btn-warning" style="border: none; cursor:pointer"><i
+                                                class="bi bi-plus"></i>
                                         </p>
                                     </div>
                                 </div>
@@ -273,7 +306,7 @@
                             function validateForm() {
                                 var x, y, i, valid = true;
                                 x = document.getElementsByClassName("tab");
-                                y = x[currentTab].getElementsByTagName("input");
+                                y = x[currentTab].getElementsByClassName("input");
 
                                 name = document.getElementsByClassName("name");
                                 phone = document.getElementsByClassName("phone_no");

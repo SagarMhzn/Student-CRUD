@@ -13,17 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        <div style="display:flex; justify-content:space-around">
-                            <div>
-                                <button class="btn btn-primary" style=""><a href="{{ route('create-student') }}" style="text-decoration: none;color:white">create student</a></button>
-                              </div>
-      
-                              <div>
-                                  <button class="btn btn-primary" style=""><a href="{{ route('view-students') }}" style="text-decoration: none;color:white">view student</a></button>
-                              </div>
-                        </div>
 
-                        {{-- <div class="show-students" style="">
+                        <div class="show-students" style="">
 
                             <table class="table table-striped">
                                 <thead>
@@ -48,9 +39,9 @@
                                         <td>{{ $student->email }}</td>
                                         <td>{{ $student->gender }}</td>
                                         <td>{{ $student->dob }}</td>
-                                        <td><button class="view-more-details btn btn-secondary">View More</button>
-                                        <button class="edit-student-details btn btn-warning">Edit</button>
-                                        <button class="delete-student-details btn btn-danger">Delete</button></td>
+                                        <td><button class="view-more-details btn btn-secondary"><a href="{{ route('view-profile', ['id'=>$student->id]) }}" style="text-decoration: none;color:white">View More</a></button>
+                                        <button class="edit-student-details btn btn-warning"><a href="/students-edit/{{ $student->id }}" style="text-decoration: none;color:white">Edit</a></button>
+                                        <button class="delete-student-details btn btn-danger"><a href="/students-delete/{{ $student->id }}" style="text-decoration: none;color:white">Delete</a></button></td>
                                       </tr>
                                     @endforeach
                                   
@@ -58,7 +49,7 @@
                                 </tbody>
                               </table>
 
-                        </div> --}}
+                        </div>
                 </div>
             </div>
         </div>
