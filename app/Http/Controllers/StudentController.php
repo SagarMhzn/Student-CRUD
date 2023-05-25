@@ -106,12 +106,12 @@ class StudentController extends Controller
     {
 
         $this->validate($request, [
-            'name' => 'required|max:8',
+            'name' => 'required|max:20',
             'phone_no' => 'required|min:10|max:10',
             'address' => 'required',
             'email' => 'required|email',
             'image' => 'mimes:pdf,xlxs,xlx,docx,doc,csv,txt,png,gif,jpg,jpeg|max:2048',
-            'gender' => ['required', Rule::in(['Male', 'Female', 'Other'])],
+            'gender' => ['required', Rule::in(['Male', 'Female'])],
             'dob' => 'required|date'
         ]);
         //

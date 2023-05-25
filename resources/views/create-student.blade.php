@@ -71,7 +71,6 @@
                         <form id="regForm" action="{{ route('student.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <h1>Register:</h1>
 
                             <!-- One "tab" for each step in the form: -->
                             <div class="tab">
@@ -127,14 +126,7 @@
                                                     Female
                                                 </label>
                                             </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="gender"
-                                                    id="gridRadios3" value="Others"
-                                                    @if (old('gender') == 'Others')  @endif>
-                                                <label class="form-check-label" for="gridRadios3">
-                                                    Rather not disclose
-                                                </label>
-                                            </div>
+                                            
                                             @error('gender')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -356,7 +348,7 @@
                                         $(this).closest('tr').remove();
                                         Fields--;
                                     } else {
-                                        alert("There needs to be atleast one batch of education intfos!");
+                                        alert("There needs to be atleast one batch of education infos!");
                                     }
 
                                     console.log(Fields);

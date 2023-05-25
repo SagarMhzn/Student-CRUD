@@ -23,13 +23,13 @@
 
 
                                     <div class="student_info" style="margin:2rem; margin-bottom: 2rem;">
-                                        <div style="display: flex; justify-content:space-between">
+                                        <div >
                                             <p>Current name:</p>
-                                            <div class="student-name" style="font-size: 30px; line-height: 20px;">
+                                            <div class="student-name" style="font-size: 30px; margin-top:-1rem">
                                                 {{ auth()->user()->name }}
                                             </div>
                                             <p>Current E-mail:</p>
-                                            <div class="student-name" style="font-size: 30px; line-height: 20px;">
+                                            <div class="student-name" style="font-size: 30px; margin-top:-1rem">
                                                 {{ auth()->user()->email }}
                                             </div>
 

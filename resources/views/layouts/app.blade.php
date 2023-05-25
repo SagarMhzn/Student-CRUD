@@ -30,12 +30,12 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 @auth
-                <button class="btn btn-primary mx-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                aria-controls="offcanvasExample">
-                <i class="bi bi-list "></i>
-            </button>
+                    <button class="btn btn-primary mx-4" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                        <i class="bi bi-list "></i>
+                    </button>
                 @endauth
-                
+
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -101,8 +101,8 @@
 
 
         <main class="py-4">
-            
-            
+
+
 
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
                 aria-labelledby="offcanvasExampleLabel">
@@ -112,17 +112,23 @@
                 </div>
                 <div class="offcanvas-body">
                     <div>
-                        
+                        <a href="{{ route('profile') }}"
+                            style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Profile</a>
                     </div>
-                    <div class="dropdown mt-3">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            Dropdown button
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Student List</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                    <div>
+                        <div>
+                            <a href="{{ route('view-students') }} " style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Student List</a>
+
+                        </div>
+                        <div>
+                            <div >
+                                <a href="{{ route('create-student') }}" style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Add more Students</a>
+                            </div>
+
+
+
+
+                        </div>
                     </div>
                 </div>
             </div>

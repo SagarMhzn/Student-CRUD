@@ -58,8 +58,8 @@ class HomeController extends Controller
     public function password_update(Request $request)
     {
         $request->validate([
-            'old_password' => 'required',
-            'password' => 'required|confirmed',
+            'old_password' => 'required|min:8',
+            'password' => 'required|confirmed|min:8',
         ]);
 
         $user = User::find(auth()->user()->id);
