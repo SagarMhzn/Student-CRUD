@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Education;
 use App\Models\Student;
+use App\Models\Education;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\StudentRequest;
 
 class StudentController extends Controller
 {
@@ -14,30 +14,14 @@ class StudentController extends Controller
         return view('create-student');
     }
 
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-
-        $this->validate($request, [
-            'name' => 'required|max:8',
-            'phone_no' => 'required|min:10|max:10',
-            'address' => 'required',
-            'email' => 'required|email',
-            'image' => 'required|mimes:pdf,xlxs,xlx,docx,doc,csv,txt,png,gif,jpg,jpeg|max:2048',
-            'gender' => ['required', Rule::in(['Male', 'Female', 'Other'])],
-            'dob' => 'required|date'
-        ]);
-        //
+        
         $record = new Student();
-
-
         $record->name = $request->name;
         $record->phone_no = $request->phone_no;
         $record->address = $request->address;
         $record->email = $request->email;
-        // $file = $request->file('image');
-        // $file_name = $file->getClientOriginalName();
-        // $destinationPath = public_path('images/');
-        // $file->move($destinationPath, $file_name);
 
         if ($request->file('image')) {
             $file = $request->file('image');
@@ -45,11 +29,9 @@ class StudentController extends Controller
             $file->move(public_path('public/Image'), $filename);
             $record->image = $filename;
         }
-        // $record->image = $destinationPath . $file_name;
         $record->gender = $request->gender;
         $record->dob = $request->dob;
         $record->save();
-
 
         $student_id = $record->id;
 
@@ -64,7 +46,7 @@ class StudentController extends Controller
             $education->enddate = $request->enddate[$index];
             $education->save();
         }
-        return redirect(route('home'));
+        return redirect()->route('home')->with('create_success','Student added Successfully!');
 
 
 
@@ -75,7 +57,7 @@ class StudentController extends Controller
     {
         $data = Student::all();
 
-        return view('view-students', compact('data'));
+        return view('view-students')->with('data', $data);
     }
 
     public function view_student_profile($id)
@@ -93,7 +75,7 @@ class StudentController extends Controller
 
         $student->delete();
 
-        return redirect()->back();
+        return redirect()->route('view-students')->with('delete_success', 'User deleted Successfully!');
     }
 
     public function edit(Student $student)
@@ -102,21 +84,10 @@ class StudentController extends Controller
         $education_data = Education::where('student_id', $student->id)->get();
         return view('edit-students', compact('student', 'education_data'));
     }
-    public function update(Request $request,Student $student)
+
+
+    public function update(StudentRequest $request,Student $student)
     {
-
-        $this->validate($request, [
-            'name' => 'required|max:20',
-            'phone_no' => 'required|min:10|max:10',
-            'address' => 'required',
-            'email' => 'required|email',
-            'image' => 'mimes:pdf,xlxs,xlx,docx,doc,csv,txt,png,gif,jpg,jpeg|max:2048',
-            'gender' => ['required', Rule::in(['Male', 'Female'])],
-            'dob' => 'required|date'
-        ]);
-        //
-      
-
 
         $student->name = $request->name;
         $student->phone_no = $request->phone_no;
@@ -151,9 +122,10 @@ class StudentController extends Controller
             $education->enddate = $request->enddate[$index];
             $education->save();
         }
-        return redirect('/student-profile/'.$student_id);
+        return redirect('/student-profile/'.$student_id)->with('student_profile_update_success', 'Student Profile updated Successfully!');
 
     }
 
-    
 }
+
+

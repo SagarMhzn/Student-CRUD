@@ -133,8 +133,13 @@
                 </div>
             </div>
             @yield('content')
+
+            <x-alerts-box >
+
+            </x-alerts-box>
         </main>
     </div>
+
 </body>
 
 </html>

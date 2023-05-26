@@ -280,6 +280,10 @@
                                 startdate = document.getElementsByClassName("startdate");
                                 enddate = document.getElementsByClassName("enddate");
 
+                                // if(name.length>20){
+                                //         alert("Name must not exceed 20 characters");
+                                //         console.log("errors");
+                                //     }
 
                                 for (i = 0; i < y.length; i++) {
                                     if (y[i].value == "") {
@@ -287,6 +291,8 @@
                                         valid = false;
                                     }
                                 }
+
+                                
                                 if (valid) {
                                     document.getElementsByClassName("step")[currentTab].className += " finish";
                                 }
@@ -311,7 +317,6 @@
 
                                 $(".add").on('click', function() {
                                     if (Fields < 5) {
-                                        console.log("field pressed")
                                         Fields++;
                                         $('.table tr:last').after(
                                             `<tr>

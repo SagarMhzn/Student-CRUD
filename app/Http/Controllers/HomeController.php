@@ -51,7 +51,7 @@ class HomeController extends Controller
 
 
 
-        return redirect()->back();
+        return redirect()->back()->with('profile_change_success','Profile Updated Successfully!');
     }
 
 
@@ -68,7 +68,7 @@ class HomeController extends Controller
         if (Hash::check($request->old_password, $user->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
-            return redirect()->back();
+            return redirect()->back()->with('password_change_success','Password Changed Successfully!');
 
         }else{
             return redirect()->back()->withErrors('old password doesnt match');

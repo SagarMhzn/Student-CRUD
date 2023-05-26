@@ -17,16 +17,20 @@ use App\Http\Controllers\EducationController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 
 
 Auth::routes();
 
+
+
 Route::middleware('auth')->group(function(){
 
+    Route::get('/', function () {
+        return view('home');
+    });
+    
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
@@ -45,8 +49,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/students-edit/{student}',[StudentController::class, 'edit'])->name('edit-student');
 
     Route::put('/students-update/{student}',[StudentController::class, 'update'])->name('update-student');
-
- 
     
 });
 
