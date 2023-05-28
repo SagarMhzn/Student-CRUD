@@ -23,34 +23,37 @@ use PhpParser\Node\Expr\FuncCall;
 
 
 Auth::routes();
-
-
-
-Route::middleware('auth')->group(function(){
-
-    Route::get('/', function () {
+Route::get('/', function () {
+    if (Auth::check()) {
         return view('home');
-    });
+    } else {
+        return view('welcome');
+    }
+});
 
-    Route::controller(HomeController::class)->group(function(){
-        Route::get('/home','index')->name('home');
+
+Route::middleware('auth')->group(function () {
+
+
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/home', 'index')->name('home');
         Route::get('/profile', 'userProfile')->name('user.profile');
         Route::get('/password/update', 'userPassword')->name('user.password');
 
 
         Route::put('/profile-update', 'profileUpdate')->name('user-profile.update');
-        Route::put('/password-update','passwordUpdate')->name('user-password.update');
+        Route::put('/password-update', 'passwordUpdate')->name('user-password.update');
     });
-    
-    Route::controller(StudentController::class)->group(function(){
+
+    Route::controller(StudentController::class)->group(function () {
 
         Route::resource('student', StudentController::class);
-        Route::get('/students','student_display')->name('view-students');
-        Route::get('/student-profile/{id}','view_student_profile')->name('view-profile');
+        Route::get('/students', 'student_display')->name('view-students');
+        Route::get('/student-profile/{id}', 'view_student_profile')->name('view-profile');
     });
-    
 
-    
+
+
 
 
     // Route::get('/create-student', [StudentController::class, 'index'])->name('create-student');
@@ -61,8 +64,8 @@ Route::middleware('auth')->group(function(){
 
     // Route::put('/students-update/{student}',[StudentController::class, 'update'])->name('update-student');
 
-   
-    
+
+
 });
 
 
@@ -76,6 +79,3 @@ Route::middleware('auth')->group(function(){
 // Route::get('/add-education-info', [EducationController::class, 'index'])->name('add-info');
 
 // Route::post('/add-education-info/{student_id}', [EducationController::class, 'store'])->name('education.store');
-
-
-
