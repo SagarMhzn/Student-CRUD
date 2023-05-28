@@ -24,7 +24,7 @@
                                           <a class="nav-link active" aria-current="page" href="{{ route('user.profile') }}">Profile</a>
                                         </li>
                                         <li class="nav-item">
-                                          <a class="nav-link" href="{{ route('user.password') }}">Link</a>
+                                          <a class="nav-link" href="{{ route('user.password') }}">Password</a>
                                         </li>
                                         
                                     </ul>
