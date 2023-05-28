@@ -30,11 +30,17 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function profile()
+    public function userProfile()
     {
         return view('profile');
     }
-    public function profile_update(Request $request)
+
+
+    public function userPassword()
+    {
+        return view('password');
+    }
+    public function profileUpdate(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -55,7 +61,7 @@ class HomeController extends Controller
     }
 
 
-    public function password_update(Request $request)
+    public function passwordUpdate(Request $request)
     {
         $request->validate([
             'old_password' => 'required|min:8',

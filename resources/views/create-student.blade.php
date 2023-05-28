@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -67,46 +66,119 @@
                             .step.finish {
                                 background-color: #04AA6D;
                             }
+
+                            .errors {
+                                color: #f44336;
+                            }
+
+                            #img-preview {
+                                display: none;
+                                width: 155px;
+                                border: 2px;
+                                margin-bottom: 20px;
+                            }
+
+                            #img-preview img {
+                                width: 100%;
+                                height: auto;
+                                display: block;
+                            }
+
+                            /* [type="file"] {
+                                        height: 0;
+                                        width: 0;
+                                        overflow: hidden;
+                                    } */
+
+                            [type="file"]+label {
+                                font-family: sans-serif;
+                                background: #f44336;
+                                padding: 10px 30px;
+                                border: 2px solid #f44336;
+                                border-radius: 3px;
+                                color: #fff;
+                                cursor: pointer;
+                                transition: all 0.2s;
+                            }
+
+                            [type="file"]+label:hover {
+                                background-color: #fff;
+                                color: #f44336;
+                            }
                         </style>
                         <form id="regForm" action="{{ route('student.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
 
+                                {{-- @if ($errors->any())
+                                    @foreach ($errors->all() as $errors)
+                                        <h1 class="text-danger">{{ $errors }}</h1>
+                                    @endforeach
+                                @endif --}}
+
                             <!-- One "tab" for each step in the form: -->
                             <div class="tab">
                                 <h3>Student Details</h3>
-                                <p>
-                                    <input placeholder="Name" onchange="this.className = ''"  name="name" type="text" class="name">
-                                    @error('name')
-                                        {{ $message }}
-                                    @enderror
+                                <p>Name
+                                    <input placeholder="Name" onchange="this.className = ''" name="name" type="text"
+                                        class="name">
+                                        <p class="errors">
+                                            @error('name')
+                                                {{ $message }}
+                                            @enderror
+                                        </p>
                                 </p>
-                                <p><input placeholder="Phone No." oninput="this.className = ''" name="phone_no" class="phone_no"
-                                        type="number">
-                                    @error('phone-no')
-                                        {{ $message }} class=""
-                                    @enderror
+                                <p>Phone No.
+                                    <input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
+                                        class="phone_no" type="text">
+                                        <p class="errors">
+                                            @error('phone_no')
+                                                {{ $message }}
+                                            @enderror
+                                        </p>
                                 </p>
-                                <p><input placeholder="Address" oninput="this.className = ''" name="address" type="text" class="address">
-                                    @error('address')
-                                        {{ $message }}
-                                    @enderror
+                                <p>Address
+                                    <input placeholder="Address" oninput="this.className = ''" name="address" type="text"
+                                        class="address">
+                                        <p class="errors">
+                                            @error('address')
+                                                {{ $message }}
+                                            @enderror
+                                        </p>
                                 </p>
-                                <p><input placeholder="E-mail" oninput="this.className = ''" name="email" type="email" class="email">
+                                <p>E-mail<input placeholder="E-mail" oninput="this.className = ''" name="email"
+                                        type="email" class="email">
+                                <p class="errors">
                                     @error('email')
                                         {{ $message }}
                                     @enderror
                                 </p>
-                                <p>Image<input type="file" class="form-control" name="image" id="image" class="image"
-                                        style="margin-bottom:1rem" accept=".jpg,.gif,.png" />
+                                </p>
+                                <p>Image
+                                    {{-- <input type="file" class="form-control" name="image" id="image"
+                                        class="image" style="margin-bottom:1rem" accept=".jpg,.gif,.png" />
                                     @error('image')
                                         {{ $message }}
-                                    @enderror
+                                    @enderror --}}
+
+
+                                <div>
+                                    <div id="img-preview"></div>
+                                    <input type="file" class="form-control" id="choose-file" name="image"
+                                        style="margin-bottom:1rem; object-fit: cover;" accept="image/*" />
+
+                                    <p class="errors">
+                                        @error('image')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                </div>
                                 </p>
                                 <p>
                                 <fieldset class="form-group" style="margin-bottom:1rem">
                                     <div class="row">
-                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" id="gender" class="gender">Gender
+                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" id="gender"
+                                            class="gender">Gender
                                         </legend>
                                         <div class="col-sm-10">
 
@@ -126,31 +198,33 @@
                                                     Female
                                                 </label>
                                             </div>
-                                            
-                                            @error('gender')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
+
+                                            <p class="errors">
+                                                @error('gender')
+                                                    {{ $message }}
+                                                @enderror
+                                            </p>
                                         </div>
                                     </div>
                                 </fieldset>
-                                @error('name')
-                                    {{ $message }}
-                                @enderror
+                               
                                 </p>
                                 <p>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-2 col-form-label">Date of Birth</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="dob" name="dob" class="dob"
-                                            placeholder="YYYY/MM/DD">
-                                        @error('dob')
-                                            {{ $message }}
-                                        @enderror
+                                        <input type="date" class="form-control" id="dob" name="dob"
+                                            class="dob" placeholder="YYYY/MM/DD">
+                                            <p class="errors">
+                                                @error('dob')
+                                                    {{ $message }}
+                                                @enderror
+                                            </p>
                                     </div>
                                 </div>
-                                @error('dob')
+                                {{-- @error('dob')
                                     {{ $message }}
-                                @enderror
+                                @enderror --}}
                                 </p>
                             </div>
 
@@ -172,27 +246,48 @@
                                         </tr>
                                     </thead>
                                     <tr>
-                                        <td><input type="text" id="level" name="level[]" class="form-control" class="level"
-                                                placeholder="Level" aria-label="City" style="text-align: center">@error('level')
-                                                {{ $message }}
-                                            @enderror</td>
-                                        <td><input type="text" id="college" name="college[]" class="form-control" class="college"
-                                                placeholder="College" aria-label="State" style="text-align: center">@error('college')
-                                                {{ $message }}
-                                            @enderror</td>
-                                        <td><input type="text" id="uni" name="uni[]" class="form-control" class="uni"
-                                                placeholder="University/Board" aria-label="State"
-                                                style="text-align: center">@error('uni')
-                                                {{ $message }}
-                                            @enderror</td>
-                                        <td><input type="date" class="form-control" id="startdate" class="startdate"
-                                                name="startdate[]">@error('startdate')
-                                                {{ $message }}
-                                            @enderror
+                                        <td><input type="text" id="level" name="level[]" class="form-control"
+                                                class="level" placeholder="Level" aria-label="City"
+                                                style="text-align: center">
+                                                <p class="errors">
+                                                    @error('level')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
                                         </td>
-                                        <td><input type="date" class="form-control" id="enddate" class="enddate" name="enddate[]">@error('enddate')
-                                            {{ $message }}
-                                        @enderror
+                                        <td><input type="text" id="college" name="college[]" class="form-control"
+                                                class="college" placeholder="College" aria-label="State"
+                                                style="text-align: center">
+                                                <p class="errors">
+                                                    @error('college')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
+                                        </td>
+                                        <td><input type="text" id="uni" name="uni[]" class="form-control"
+                                                class="uni" placeholder="University/Board" aria-label="State"
+                                                style="text-align: center">
+                                                <p class="errors">
+                                                    @error('uni')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
+                                        </td>
+                                        <td><input type="date" class="form-control" id="startdate" class="startdate"
+                                                name="startdate[]">
+                                                <p class="errors">
+                                                    @error('startdate')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
+                                        </td>
+                                        <td><input type="date" class="form-control" id="enddate" class="enddate"
+                                                name="enddate[]">
+                                                <p class="errors">
+                                                    @error('enddate')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
                                         </td>
                                         <td>
                                             <a class="btn btn-block btn-danger sa-danger remove_row "><i
@@ -202,9 +297,10 @@
                                     </tbody>
                                 </table>
 
-                                <div class="add-fields" >
+                                <div class="add-fields">
                                     <div style="float:left;">
-                                        <p class="add btn btn-warning" role="button" style="border: none; cursor:pointer"><i class="bi bi-plus"></i>
+                                        <p class="add btn btn-warning" role="button"
+                                            style="border: none; cursor:pointer"><i class="bi bi-plus"></i>
                                         </p>
                                     </div>
                                 </div>
@@ -267,18 +363,18 @@
                                 x = document.getElementsByClassName("tab");
                                 y = x[currentTab].getElementsByTagName("input");
 
-                                name = document.getElementsByClassName("name");
-                                phone = document.getElementsByClassName("phone_no");
-                                address = document.getElementsByClassName("address");
-                                email = document.getElementsByClassName("email");
-                                image = document.getElementsByClassName("image");
-                                gender = document.getElementsByClassName("gender");
-                                dob = document.getElementsByClassName("dob");
-                                level = document.getElementsByClassName("level");
-                                college = document.getElementsByClassName("college");
-                                uni = document.getElementsByClassName("uni");
-                                startdate = document.getElementsByClassName("startdate");
-                                enddate = document.getElementsByClassName("enddate");
+                                // name = document.getElementsByClassName("name");
+                                // phone = document.getElementsByClassName("phone_no");
+                                // address = document.getElementsByClassName("address");
+                                // email = document.getElementsByClassName("email");
+                                // image = document.getElementsByClassName("image");
+                                // gender = document.getElementsByClassName("gender");
+                                // dob = document.getElementsByClassName("dob");
+                                // level = document.getElementsByClassName("level");
+                                // college = document.getElementsByClassName("college");
+                                // uni = document.getElementsByClassName("uni");
+                                // startdate = document.getElementsByClassName("startdate");
+                                // enddate = document.getElementsByClassName("enddate");
 
                                 // if(name.length>20){
                                 //         alert("Name must not exceed 20 characters");
@@ -286,13 +382,15 @@
                                 //     }
 
                                 for (i = 0; i < y.length; i++) {
-                                    if (y[i].value == "") {
+
+                                    var elementId = y[i].getAttribute("id");
+                                    if (y[i].value == "" && elementId != 'choose-file') {
                                         y[i].className += " invalid";
                                         valid = false;
                                     }
                                 }
 
-                                
+
                                 if (valid) {
                                     document.getElementsByClassName("step")[currentTab].className += " finish";
                                 }
@@ -358,7 +456,29 @@
 
                                     console.log(Fields);
                                 });
+
+
                             });
+
+
+                            const chooseFile = document.getElementById("choose-file");
+                            const imgPreview = document.getElementById("img-preview");
+
+                            chooseFile.addEventListener("change", function() {
+                                getImgData();
+                            });
+
+                            function getImgData() {
+                                const files = chooseFile.files[0];
+                                if (files) {
+                                    const fileReader = new FileReader();
+                                    fileReader.readAsDataURL(files);
+                                    fileReader.addEventListener("load", function() {
+                                        imgPreview.style.display = "block";
+                                        imgPreview.innerHTML = '<div><img src="' + this.result + '" />';
+                                    });
+                                }
+                            }
                         </script>
 
                     </div>
