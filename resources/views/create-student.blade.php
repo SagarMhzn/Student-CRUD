@@ -67,7 +67,7 @@
                                 background-color: #04AA6D;
                             }
 
-                            .errors {
+                            .error {
                                 color: #f44336;
                             }
 
@@ -85,10 +85,10 @@
                             }
 
                             /* [type="file"] {
-                                        height: 0;
-                                        width: 0;
-                                        overflow: hidden;
-                                    } */
+                                                                    height: 0;
+                                                                    width: 0;
+                                                                    overflow: hidden;
+                                                                } */
 
                             [type="file"]+label {
                                 font-family: sans-serif;
@@ -110,50 +110,27 @@
                             enctype="multipart/form-data">
                             @csrf
 
-                                {{-- @if ($errors->any())
-                                    @foreach ($errors->all() as $errors)
-                                        <h1 class="text-danger">{{ $errors }}</h1>
-                                    @endforeach
-                                @endif --}}
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $errors)
+                                    <h1 class="text-danger">{{ $errors }}</h1>
+                                @endforeach
+                            @endif
 
                             <!-- One "tab" for each step in the form: -->
                             <div class="tab">
                                 <h3>Student Details</h3>
-                                <p>Name
-                                    <input placeholder="Name" onchange="this.className = ''" name="name" type="text"
-                                        class="name">
-                                        <p class="errors">
-                                            @error('name')
-                                                {{ $message }}
-                                            @enderror
-                                        </p>
-                                </p>
-                                <p>Phone No.
-                                    <input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
-                                        class="phone_no" type="text">
-                                        <p class="errors">
-                                            @error('phone_no')
-                                                {{ $message }}
-                                            @enderror
-                                        </p>
-                                </p>
-                                <p>Address
-                                    <input placeholder="Address" oninput="this.className = ''" name="address" type="text"
-                                        class="address">
-                                        <p class="errors">
-                                            @error('address')
-                                                {{ $message }}
-                                            @enderror
-                                        </p>
-                                </p>
+                                <p>Name<input placeholder="Name" onchange="this.className = ''" name="name"
+                                        type="text" class="name"></p>
+                                <span id="name" class="error"></span>
+                                <p>Phone No.<input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
+                                        class="phone_no" type="text"></p>
+                                <span id="phone_no" class="error"></span>
+                                <p>Address<input placeholder="Address" oninput="this.className = ''" name="address"
+                                        type="text" class="address"></p>
+                                <span id="address" class="error"></span>
                                 <p>E-mail<input placeholder="E-mail" oninput="this.className = ''" name="email"
-                                        type="email" class="email">
-                                <p class="errors">
-                                    @error('email')
-                                        {{ $message }}
-                                    @enderror
-                                </p>
-                                </p>
+                                        type="email" class="email"></p>
+                                <span id="email" class="error"></span>
                                 <p>Image
                                     {{-- <input type="file" class="form-control" name="image" id="image"
                                         class="image" style="margin-bottom:1rem" accept=".jpg,.gif,.png" />
@@ -166,19 +143,12 @@
                                     <div id="img-preview"></div>
                                     <input type="file" class="form-control" id="choose-file" name="image"
                                         style="margin-bottom:1rem; object-fit: cover;" accept="image/*" />
-
-                                    <p class="errors">
-                                        @error('image')
-                                            {{ $message }}
-                                        @enderror
-                                    </p>
                                 </div>
                                 </p>
                                 <p>
                                 <fieldset class="form-group" style="margin-bottom:1rem">
                                     <div class="row">
-                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" id="gender"
-                                            class="gender">Gender
+                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" class="gender">Gender
                                         </legend>
                                         <div class="col-sm-10">
 
@@ -199,33 +169,25 @@
                                                 </label>
                                             </div>
 
-                                            <p class="errors">
-                                                @error('gender')
-                                                    {{ $message }}
-                                                @enderror
-                                            </p>
+                                            <span id="name" class="error"></span>
                                         </div>
                                     </div>
                                 </fieldset>
-                               
+
                                 </p>
                                 <p>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-2 col-form-label">Date of Birth</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="dob" name="dob"
-                                            class="dob" placeholder="YYYY/MM/DD">
-                                            <p class="errors">
-                                                @error('dob')
-                                                    {{ $message }}
-                                                @enderror
-                                            </p>
+                                        <input type="date" class="form-control" name="dob" class="dob"
+                                            placeholder="YYYY/MM/DD">
                                     </div>
                                 </div>
-                                {{-- @error('dob')
-                                    {{ $message }}
-                                @enderror --}}
                                 </p>
+                                <span id="dob" class="error"></span>
+
+
+
                             </div>
 
                             <div class="tab">
@@ -246,53 +208,38 @@
                                         </tr>
                                     </thead>
                                     <tr>
-                                        <td><input type="text" id="level" name="level[]" class="form-control"
-                                                class="level" placeholder="Level" aria-label="City"
-                                                style="text-align: center">
-                                                <p class="errors">
-                                                    @error('level')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </p>
+                                        <td><input type="text" name="level[]" class="form-control" class="level"
+                                                placeholder="Level" aria-label="City" style="text-align: center">
                                         </td>
-                                        <td><input type="text" id="college" name="college[]" class="form-control"
-                                                class="college" placeholder="College" aria-label="State"
-                                                style="text-align: center">
-                                                <p class="errors">
-                                                    @error('college')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </p>
+
+                                        <td><input type="text" name="college[]" class="form-control" class="college"
+                                                placeholder="College" aria-label="State" style="text-align: center">
                                         </td>
-                                        <td><input type="text" id="uni" name="uni[]" class="form-control"
-                                                class="uni" placeholder="University/Board" aria-label="State"
+
+                                        <td><input type="text" name="uni[]" class="form-control" class="uni"
+                                                placeholder="University/Board" aria-label="State"
                                                 style="text-align: center">
-                                                <p class="errors">
-                                                    @error('uni')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </p>
                                         </td>
-                                        <td><input type="date" class="form-control" id="startdate" class="startdate"
+
+                                        <td><input type="date" class="form-control" class="startdate"
                                                 name="startdate[]">
-                                                <p class="errors">
-                                                    @error('startdate')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </p>
                                         </td>
-                                        <td><input type="date" class="form-control" id="enddate" class="enddate"
-                                                name="enddate[]">
-                                                <p class="errors">
-                                                    @error('enddate')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </p>
+
+                                        <td><input type="date" class="form-control" class="enddate" name="enddate[]">
                                         </td>
+
                                         <td>
                                             <a class="btn btn-block btn-danger sa-danger remove_row "><i
                                                     class="bi bi-trash3"></i></a>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span id="level[]" class="error"></span></td>
+                                        <td><span id="college[]" class="error"></span></td>
+                                        <td><span id="uni[]" class="error"></span></td>
+                                        <td><span id="startdate[]" class="error"></span></td>
+                                        <td><span id="enddate[]" class="error"></span></td>
+                                        <td></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -363,30 +310,47 @@
                                 x = document.getElementsByClassName("tab");
                                 y = x[currentTab].getElementsByTagName("input");
 
-                                // name = document.getElementsByClassName("name");
-                                // phone = document.getElementsByClassName("phone_no");
-                                // address = document.getElementsByClassName("address");
-                                // email = document.getElementsByClassName("email");
-                                // image = document.getElementsByClassName("image");
-                                // gender = document.getElementsByClassName("gender");
-                                // dob = document.getElementsByClassName("dob");
-                                // level = document.getElementsByClassName("level");
-                                // college = document.getElementsByClassName("college");
-                                // uni = document.getElementsByClassName("uni");
-                                // startdate = document.getElementsByClassName("startdate");
-                                // enddate = document.getElementsByClassName("enddate");
+                                var errorElements = document.getElementsByClassName("error");
+                                for (i = 0; i < errorElements.length; i++) {
+                                    errorElements[i].innerHTML = "";
+                                }
 
-                                // if(name.length>20){
-                                //         alert("Name must not exceed 20 characters");
-                                //         console.log("errors");
-                                //     }
 
                                 for (i = 0; i < y.length; i++) {
 
                                     var elementId = y[i].getAttribute("id");
-                                    if (y[i].value == "" && elementId != 'choose-file') {
+
+                                    var val = y[i].value.trim();
+                                    var fieldName = y[i].name;
+
+                                    if (val === "" && elementId != 'choose-file') {
                                         y[i].className += " invalid";
                                         valid = false;
+                                        document.getElementById(fieldName).innerHTML = "This field is required.";
+                                    } else {
+                                        // Additional checks for specific fields
+                                        if (fieldName === "name" && !/^[a-zA-Z\s]+$/.test(val)) {
+                                            y[i].className += " invalid";
+                                            valid = false;
+                                            document.getElementById("name").innerHTML =
+                                                "Please enter a valid name (only text characters are allowed).";
+                                        } else if (fieldName === "name" && val.length > 20) {
+                                            y[i].className += " invalid";
+                                            valid = false;
+                                            document.getElementById("name").innerHTML =
+                                                "Please enter a valid name (Name should be no greater than 20 characters!).";
+
+                                        } else if (fieldName === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+                                            y[i].className += " invalid";
+                                            valid = false;
+                                            document.getElementById("email").innerHTML = "Please enter a valid email address.";
+                                        } else if (fieldName === "phone_no" && !/^[0-9]{10}$/.test(val) && val.length > 10) {
+                                            y[i].className += " invalid";
+                                            valid = false;
+                                            document.getElementById("phone_no").innerHTML = "Please enter a valid phone number.";
+                                        }
+
+
                                     }
                                 }
 

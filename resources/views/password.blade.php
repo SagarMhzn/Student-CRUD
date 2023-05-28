@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Update Profile') }}</div>
+                    <div class="card-header">{{ __('Update Password') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -24,7 +24,7 @@
                                           <a class="nav-link "  href="{{ route('user.profile') }}">Profile</a>
                                         </li>
                                         <li class="nav-item">
-                                          <a class="nav-link active" aria-current="page" href="#">Link</a>
+                                          <a class="nav-link active" aria-current="page" href="#">Password</a>
                                         </li>
                                         
                                     </ul>

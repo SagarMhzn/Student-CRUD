@@ -36,7 +36,7 @@
                     </button>
                 @endauth
 
-                <a class="navbar-brand" href="{{ url('/home') }}">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <x-alerts-box >
+            <x-alerts-box>
 
             </x-alerts-box>
             @yield('content')
