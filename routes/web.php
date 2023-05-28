@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\EducationController;
+use PhpParser\Node\Expr\FuncCall;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,27 +31,42 @@ Route::middleware('auth')->group(function(){
     Route::get('/', function () {
         return view('home');
     });
+
+    Route::controller(HomeController::class)->group(function(){
+        Route::get('/home','index')->name('home');
+        Route::get('/profile', 'userProfile')->name('user.profile');
+        Route::get('/password/update', 'userPassword')->name('user.password');
+
+
+        Route::put('/profile-update', 'profileUpdate')->name('user-profile.update');
+        Route::put('/password-update','passwordUpdate')->name('user-password.update');
+    });
     
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::controller(StudentController::class)->group(function(){
 
-    Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
-    Route::put('/profile-update', [HomeController::class, 'profile_update'])->name('profile.update');
-    Route::put('/password-update', [HomeController::class, 'password_update'])->name('password.update');
+        Route::resource('student', StudentController::class);
+        Route::get('/students','student_display')->name('view-students');
+        Route::get('/student-profile/{id}','view_student_profile')->name('view-profile');
+    });
+    
 
-    Route::get('/students',[StudentController::class,'student_display'])->name('view-students');
-
-    Route::get('/student-profile/{id}',[StudentController::class,'view_student_profile'])->name('view-profile');
+    
 
 
-    Route::get('/create-student', [StudentController::class, 'index'])->name('create-student');
-    Route::post('/create-student', [StudentController::class, 'store'])->name('student.store');
+    // Route::get('/create-student', [StudentController::class, 'index'])->name('create-student');
+    // Route::post('/create-student', [StudentController::class, 'store'])->name('student.store');
 
-    Route::get('/students-delete/{student}',[StudentController::class, 'destroy'])->name('delete-student');
-    Route::get('/students-edit/{student}',[StudentController::class, 'edit'])->name('edit-student');
+    // Route::get('/students-delete/{student}',[StudentController::class, 'destroy'])->name('delete-student');
+    // Route::get('/students-edit/{student}',[StudentController::class, 'edit'])->name('edit-student');
 
-    Route::put('/students-update/{student}',[StudentController::class, 'update'])->name('update-student');
+    // Route::put('/students-update/{student}',[StudentController::class, 'update'])->name('update-student');
+
+   
     
 });
+
+
+
 
 
 

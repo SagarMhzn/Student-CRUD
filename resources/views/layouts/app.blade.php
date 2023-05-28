@@ -76,7 +76,7 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <a class="dropdown-item" href="{{ route('user.profile') }}">
 
                                         {{ __('Profile') }}
                                     </a>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="offcanvas-body">
                     <div>
-                        <a href="{{ route('profile') }}"
+                        <a href="{{ route('user.profile') }}"
                             style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Profile</a>
                     </div>
                     <div>
@@ -122,7 +122,7 @@
                         </div>
                         <div>
                             <div >
-                                <a href="{{ route('create-student') }}" style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Add more Students</a>
+                                <a href="{{ route('student.create') }}" style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Add more Students</a>
                             </div>
 
 
@@ -132,11 +132,12 @@
                     </div>
                 </div>
             </div>
-            @yield('content')
-
             <x-alerts-box >
 
             </x-alerts-box>
+            @yield('content')
+
+            
         </main>
     </div>
 

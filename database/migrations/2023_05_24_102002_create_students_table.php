@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('phone_no');
+            $table->string('phone_no',10);
             $table->string('address');
             $table->string('email');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('gender');
             $table->date('dob');
             $table->timestamps();

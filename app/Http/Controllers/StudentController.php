@@ -11,12 +11,18 @@ class StudentController extends Controller
 {
     public function index()
     {
+        return view('home');
+    }
+
+    public function create()
+    {
         return view('create-student');
     }
 
+
     public function store(StudentRequest $request)
     {
-        
+        // dd($request);
         $record = new Student();
         $record->name = $request->name;
         $record->phone_no = $request->phone_no;
@@ -49,8 +55,6 @@ class StudentController extends Controller
         return redirect()->route('home')->with('create_success','Student added Successfully!');
 
 
-
-        // return redirect(route('add-info'))->with('success',"Student info added sucessfully");
     }
 
     public function student_display()
@@ -64,9 +68,6 @@ class StudentController extends Controller
     {
         $data = Student::find($id);
         $education_data = Education::where('student_id', $id)->get();
-
-
-
         return view('view-profile', compact('education_data', 'data'));
     }
 

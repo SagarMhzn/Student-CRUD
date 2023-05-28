@@ -41,7 +41,7 @@
                             }
 
                             /* Hide all steps by default: */
-                            .tab {
+                            .tab1 {
                                 display: none;
                             }
 
@@ -66,9 +66,48 @@
                             .step.finish {
                                 background-color: #04AA6D;
                             }
+
+                            .errors {
+                                color: #f44336;
+                            }
+
+                            #img-preview {
+                                display: none;
+                                width: 155px;
+                                border: 2px;
+                                margin-bottom: 20px;
+                            }
+
+                            #img-preview img {
+                                width: 100%;
+                                height: auto;
+                                display: block;
+                            }
+
+                            /* [type="file"] {
+                                        height: 0;
+                                        width: 0;
+                                        overflow: hidden;
+                                    } */
+
+                            [type="file"]+label {
+                                font-family: sans-serif;
+                                background: #f44336;
+                                padding: 10px 30px;
+                                border: 2px solid #f44336;
+                                border-radius: 3px;
+                                color: #fff;
+                                cursor: pointer;
+                                transition: all 0.2s;
+                            }
+
+                            [type="file"]+label:hover {
+                                background-color: #fff;
+                                color: #f44336;
+                            }
                         </style>
-                        <form id="regForm" action="/students-update/{{ $student->id }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form id="regForm" action="{{ route('student.update', ['student' => $student->id]) }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
 
                             @method('put')
@@ -81,41 +120,67 @@
 
 
                             <!-- One "tab" for each step in the form: -->
-                            <div class="tab">
+                            <div class="tab1">
                                 <h3>Student Details</h3>
                                 <p>
                                     <input placeholder="Name" onchange="this.className = ''" name="name" type="text"
-                                        class="name input" value="{{ $student->name }}">
+                                        id="name" value="{{ $student->name }}">
+                                <p class="errors">
+
                                     @error('name')
                                         {{ $message }}
                                     @enderror
                                 </p>
+                                </p>
                                 <p><input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
-                                        class="phone_no input" value="{{ $student->phone_no }}" type="number">
+                                        id="phone_no" value="{{ $student->phone_no }}" type="text">
+                                <p class="errors">
+
                                     @error('phone-no')
                                         {{ $message }} class=""
                                     @enderror
                                 </p>
+                                </p>
                                 <p><input placeholder="Address" oninput="this.className = ''" name="address" type="text"
-                                        class="address input" value="{{ $student->address }}">
+                                        id="address" value="{{ $student->address }}">
+                                <p class="errors">
+
                                     @error('address')
                                         {{ $message }}
                                     @enderror
                                 </p>
+                                </p>
                                 <p><input placeholder="E-mail" oninput="this.className = ''" name="email" type="email"
-                                        class="email input" value="{{ $student->email }}">
+                                        id="email" value="{{ $student->email }}">
+                                <p class="errors">
+
                                     @error('email')
                                         {{ $message }}
                                     @enderror
                                 </p>
+                                </p>
+                                <p>Image
+                                <div class="old_image-vs-new_image " style="display:flex; justify-content: space-around;">
+                                    <div style="display: block"><img src="{{ url('public/Image/' . $student->image) }}" width="200px"
+                                            height="100px" alt="" style="object-fit: cover;"> 
+                                            <figcaption style="text-align: center;">Previous Image</figcaption>
+                                            </div>
 
-                                <div><img src="{{ url('public/Image/' . $student->image) }}" width="200px" height="100px"
-                                        alt=""></div>
-                                <p>Image<input type="file" class="form-control" name="image" id="image"
-                                        class="image" style="margin-bottom:1rem" accept=".jpg,.gif,.png" />
+                                    {{-- <input type="file" class="form-control" name="image" id="image"
+                                            id="image" style="margin-bottom:1rem" accept=".jpg,.gif,.png" /> --}}
+
+                                    <div id="img-preview"> 
+                                        New Image
+                                    </div>
+                                </div>
+                                <input type="file" class="form-control" id="choose-file" name="image"
+                                    style="margin-bottom:1rem; " accept="image/*" alt="New-Image"/>
+                                <p class="errors">
+
                                     @error('image')
                                         {{ $message }}
                                     @enderror
+                                </p>
                                 </p>
                                 <p>
                                 <fieldset class="form-group" style="margin-bottom:1rem">
@@ -142,23 +207,24 @@
                                                     Female
                                                 </label>
                                             </div>
-                                            <div class="form-check">
+                                            {{-- <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="gender"
                                                     {{ $student->gender === 'Others' ? 'checked' : '' }} id="gridRadios3"
                                                     value="Others" @if (old('gender') == 'Others')  @endif>
                                                 <label class="form-check-label" for="gridRadios3">
                                                     Rather not disclose
                                                 </label>
-                                            </div>
-                                            @error('gender')
+                                            </div> --}}
+                                            <p class="errors">
+
+                                                @error('gender')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
+                                            </p>
                                         </div>
                                     </div>
                                 </fieldset>
-                                @error('name')
-                                    {{ $message }}
-                                @enderror
+
                                 </p>
                                 <p>
                                 <div class="form-group row">
@@ -166,18 +232,19 @@
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control" id="dob" name="dob"
                                             class="dob input" value="{{ $student->dob }}" placeholder="YYYY/MM/DD">
-                                        @error('dob')
-                                            {{ $message }}
-                                        @enderror
+                                        <p class="errors">
+
+                                            @error('dob')
+                                                {{ $message }}
+                                            @enderror
+                                        </p>
                                     </div>
                                 </div>
-                                @error('dob')
-                                    {{ $message }}
-                                @enderror
+
                                 </p>
                             </div>
 
-                            <div class="tab">
+                            <div class="tab1">
                                 <h3>Education Info</h3>
                                 <p>
                                 <table class="table" style="text-align: center">
@@ -200,38 +267,53 @@
                                             <td><input type="text" id="level" name="level[]" class="form-control"
                                                     class="level input" value="{{ $item->level }}" placeholder="Level"
                                                     aria-label="City" style="text-align: center">
-                                                @error('level')
-                                                    {{ $message }}
-                                                @enderror
+                                                <p class="errors">
+
+                                                    @error('level')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
                                             </td>
                                             <td><input type="text" id="college" name="college[]"
                                                     class="form-control" class="college input"
                                                     value="{{ $item->college }}" placeholder="College"
                                                     aria-label="State" style="text-align: center">
-                                                @error('college')
-                                                    {{ $message }}
-                                                @enderror
+                                                <p class="errors">
+
+                                                    @error('college')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
                                             </td>
                                             <td><input type="text" id="uni" name="uni[]" class="form-control"
                                                     class="uni input" value="{{ $item->university }}"
                                                     placeholder="University/Board" aria-label="State"
                                                     style="text-align: center">
-                                                @error('uni')
-                                                    {{ $message }}
-                                                @enderror
+                                                <p class="errors">
+
+                                                    @error('uni')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
                                             </td>
                                             <td><input type="date" class="form-control" id="startdate"
                                                     class="startdate input" value="{{ $item->startdate }}"
                                                     name="startdate[]">
-                                                @error('startdate')
-                                                    {{ $message }}
-                                                @enderror
+                                                <p class="errors">
+
+                                                    @error('startdate')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
                                             </td>
                                             <td><input type="date" class="form-control" id="enddate"
                                                     class="enddate input" name="enddate[]" value="{{ $item->enddate }}">
-                                                @error('enddate')
-                                                    {{ $message }}
-                                                @enderror
+                                                <p class="errors">
+
+                                                    @error('enddate')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </p>
                                             </td>
                                             <td>
                                                 <a class="btn btn-block btn-danger sa-danger remove_row "><i
@@ -271,132 +353,7 @@
 
                         </form>
 
-                        <script>
-                            var currentTab = 0;
-                            showTab(currentTab);
 
-                            function showTab(n) {
-                                var x = document.getElementsByClassName("tab");
-                                x[n].style.display = "block";
-                                if (n == 0) {
-                                    document.getElementById("prevBtn").style.display = "none";
-                                } else {
-                                    document.getElementById("prevBtn").style.display = "inline";
-                                }
-                                if (n == (x.length - 1)) {
-                                    document.getElementById("nextBtn").innerHTML = "Submit";
-                                } else {
-                                    document.getElementById("nextBtn").innerHTML = "Next";
-                                }
-                                fixStepIndicator(n)
-                            }
-
-                            function nextPrev(n) {
-                                var x = document.getElementsByClassName("tab");
-                                if (n == 1 && !validateForm()) return false;
-                                x[currentTab].style.display = "none";
-                                currentTab = currentTab + n;
-                                if (currentTab >= x.length) {
-                                    document.getElementById("regForm").submit();
-                                    return false;
-                                }
-                                showTab(currentTab);
-                            }
-
-                            function validateForm() {
-                                var x, y, i, valid = true;
-                                x = document.getElementsByClassName("tab");
-                                y = x[currentTab].getElementsByClassName("input");
-
-                                name = document.getElementsByClassName("name");
-                                phone = document.getElementsByClassName("phone_no");
-                                address = document.getElementsByClassName("address");
-                                email = document.getElementsByClassName("email");
-                                image = document.getElementsByClassName("image");
-                                gender = document.getElementsByClassName("gender");
-                                dob = document.getElementsByClassName("dob");
-                                level = document.getElementsByClassName("level");
-                                college = document.getElementsByClassName("college");
-                                uni = document.getElementsByClassName("uni");
-                                startdate = document.getElementsByClassName("startdate");
-                                enddate = document.getElementsByClassName("enddate");
-
-
-                                for (i = 0; i < y.length; i++) {
-                                    if (y[i].value == "") {
-                                        y[i].className += " invalid";
-                                        valid = false;
-                                    }
-                                }
-                                if (valid) {
-                                    document.getElementsByClassName("step")[currentTab].className += " finish";
-                                }
-                                return valid;
-                            }
-
-                            function fixStepIndicator(n) {
-                                var i, x = document.getElementsByClassName("step");
-                                for (i = 0; i < x.length; i++) {
-                                    x[i].className = x[i].className.replace(" active", "");
-                                }
-                                x[n].className += " active";
-                            }
-
-
-                            $(document).ready(function() {
-
-
-                                var Fields = {{ count($education_data) }};
-                                var maxFields = 5;
-
-
-
-                                $(".add").on('click', function() {
-                                    if (Fields < 5) {
-                                        
-                                        Fields++;
-                                        $('.table tr:last').after(
-                                            `<tr>
-                                                <td>
-                                                    <input type="text" id="level" name="level[]" class="form-control"placeholder="Level" aria-label="City" style="text-align: center">
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="college" name="college[]" class="form-control" placeholder="College" aria-label="State" style="text-align: center">
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="uni" name="uni[]" class="form-control" placeholder="University/Board" aria-label="State"style="text-align: center">
-                                                </td>
-                                                <td>
-                                                    <input type="date" class="form-control" id="startdate" name="startdate[]">
-                                                </td>
-                                                <td>
-                                                    <input type="date" class="form-control" id="enddate" name="enddate[]">
-                                                </td>
-                                                <td>
-                                                <a class="btn btn-block btn-danger sa-danger remove_row "><i
-                                                        class="bi bi-trash3"></i></a>
-                                                </td>
-                                            </tr>`
-                                        );
-                                    } else {
-                                        alert("max fields reached");
-                                    }
-
-                                    
-                                });
-
-                                $(".table").on('click', '.remove_row', function() {
-                                    if (Fields > 1) {
-                                        $(this).closest('tr').remove();
-                                        Fields--;
-                                    } else {
-                                        alert("There needs to be atleast one batch of education infos!");
-                                    }
-
-                                    
-                                });
-                            });
-                        </script>
 
                     </div>
                 </div>
@@ -404,4 +361,156 @@
         </div>
 
     </div>
+
+    <script>
+        var currentTab = 0;
+        showTab(currentTab);
+
+        function showTab(n) {
+            var x = document.getElementsByClassName("tab1");
+            x[n].style.display = "block";
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").innerHTML = "Submit";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            fixStepIndicator(n)
+        }
+
+        function nextPrev(n) {
+            var x = document.getElementsByClassName("tab1");
+            if (n == 1 && !validateForm()) return false;
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            if (currentTab >= x.length) {
+                document.getElementById("regForm").submit();
+                return false;
+            }
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+            console.log("empty");
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab1");
+            y = x[currentTab].getElementsByTagName("input");
+
+
+
+            // var name = document.getElementById("name");
+            // phone = document.getElementsByClassName("phone_no");
+            // address = document.getElementsByClassName("address");
+            // email = document.getElementsByClassName("email");
+            // image = document.getElementsByClassName("image");
+            // gender = document.getElementsByClassName("gender");
+            // dob = document.getElementsByClassName("dob");
+            // level = document.getElementsByClassName("level");
+            // college = document.getElementsByClassName("college");
+            // uni = document.getElementsByClassName("uni");
+            // startdate = document.getElementsByClassName("startdate");
+            // enddate = document.getElementsByClassName("enddate");
+
+
+            for (i = 0; i < y.length; i++) {
+
+                var elementId = y[i].getAttribute("id");
+                if (y[i].value == "" && elementId != 'choose-file') {
+                    y[i].className += " invalid";
+                    valid = false;
+
+                }
+            }
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+            return valid;
+        }
+
+        function fixStepIndicator(n) {
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            x[n].className += " active";
+        }
+
+
+        $(document).ready(function() {
+
+
+            var Fields = {{ count($education_data) }};
+            var maxFields = 5;
+
+
+
+            $(".add").on('click', function() {
+                if (Fields < 5) {
+
+                    Fields++;
+                    $('.table tr:last').after(
+                        `<tr>
+                            <td>
+                                <input type="text" id="level" name="level[]" class="form-control"placeholder="Level" aria-label="City" style="text-align: center">
+                            </td>
+                            <td>
+                                <input type="text" id="college" name="college[]" class="form-control" placeholder="College" aria-label="State" style="text-align: center">
+                            </td>
+                            <td>
+                                <input type="text" id="uni" name="uni[]" class="form-control" placeholder="University/Board" aria-label="State"style="text-align: center">
+                            </td>
+                            <td>
+                                <input type="date" class="form-control" id="startdate" name="startdate[]">
+                            </td>
+                            <td>
+                                <input type="date" class="form-control" id="enddate" name="enddate[]">
+                            </td>
+                            <td>
+                            <a class="btn btn-block btn-danger sa-danger remove_row "><i
+                                    class="bi bi-trash3"></i></a>
+                            </td>
+                        </tr>`
+                    );
+                } else {
+                    alert("max fields reached");
+                }
+
+
+            });
+
+            $(".table").on('click', '.remove_row', function() {
+                if (Fields > 1) {
+                    $(this).closest('tr').remove();
+                    Fields--;
+                } else {
+                    alert("There needs to be atleast one batch of education infos!");
+                }
+
+
+            });
+
+        });
+        const chooseFile = document.getElementById("choose-file");
+        const imgPreview = document.getElementById("img-preview");
+
+        chooseFile.addEventListener("change", function() {
+            getImgData();
+        });
+
+        function getImgData() {
+            const files = chooseFile.files[0];
+            if (files) {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(files);
+                fileReader.addEventListener("load", function() {
+                    imgPreview.style.display = "block";
+                    imgPreview.innerHTML = '<img src="' + this.result + '" /> <p align="center">New Image</p></div> ';
+                });
+            }
+        }
+    </script>
 @endsection

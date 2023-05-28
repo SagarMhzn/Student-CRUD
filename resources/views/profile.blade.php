@@ -19,7 +19,15 @@
                             <div>
 
                                 <div class="student_profile" >
-
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                          <a class="nav-link active" aria-current="page" href="{{ route('user.profile') }}">Profile</a>
+                                        </li>
+                                        <li class="nav-item">
+                                          <a class="nav-link" href="{{ route('user.password') }}">Link</a>
+                                        </li>
+                                        
+                                    </ul>
 
 
                                     <div class="student_info" style="margin:2rem; margin-bottom: 2rem;">
@@ -69,7 +77,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="update-password" style="margin:2rem; margin-bottom: 2rem;">
+                                    {{-- <div class="update-password" style="margin:2rem; margin-bottom: 2rem;">
                                         <h1>Update Password</h1>
 
                                         <form action="/password-update" method="post">
@@ -98,27 +106,8 @@
                                             <button class="btn btn-primary"> Update</button>
                                         </form>
 
-                                    </div>
-                                    {{-- <h4 style="text-decoration:underline">Contact Info</h4>
-                                        <div class="contact-info" style="font-size: 15px; ">
-                                            <h5>{{ $data->email }}</h5>
-                                            <h5>{{ $data->phone_no }}</h5>
-                                            <h5>{{ $data->address }}</h5>
-                                        </div>
-
-                                        <div class="gender">
-                                            <h6>Gender : {{ $data->gender }}</h6>
-                                        </div>
-                                        <div class="date-of-birth">
-                                            <h6>DoB : {{ $data->dob }}</h6>
-                                        </div> --}}
-
-
-
+                                    </div> --}}
                                 </div>
-
-
-
                             </div>
 
                         </div>

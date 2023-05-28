@@ -16,7 +16,7 @@
 
                         <div style="display:flex; justify-content:space-around">
                             <div>
-                                <button class="btn btn-primary" style=""><a href="{{ route('create-student') }}"
+                                <button class="btn btn-primary" style=""><a href="{{ route('student.create') }}"
                                         style="text-decoration: none;color:white">create student</a></button>
                             </div>
 
