@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Student;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -39,7 +40,7 @@ class StudentRequest extends FormRequest
 
     // }
 
-    public function rules()
+    public function rules(Student $student)
     {
         // if ($this->isMethod('GET')) {
         //     return [
@@ -60,27 +61,40 @@ class StudentRequest extends FormRequest
                 'phone_no' => 'required|regex:/^[0-9]{10}$/|numeric|unique:students',
                 'address' => 'required',
                 'email' => 'required|email|unique:users|unique:students,email,$id,id',
-                'image' =>  'image|mimes:jpeg,png,gif|max:2048',   
+                'image' =>  'image|mimes:jpeg,png,gif|max:2048',
                 'gender' => ['required', Rule::in(['Male', 'Female'])],
-                'dob' => 'required|date'            
+                'dob' => 'required|date',
+                
+                'start_date' => 'required',
+                'end_date' => 'required',
+                'level' => 'required',
+                'university' => 'required',
+                'college' => 'required',
+                'email' => 'required|unique:students,email'
             ];
-        } elseif ($this->isMethod('PUT')) {
-            return [
+        } elseif (($this->isMethod('PUT')) || ($this->isMethod('PATCH'))) {
+            $rules = [
                 'name' => 'required|max:20',
                 // 'phone_no' => 'required|min:10|max:10|unique:students,phone_no|numeric',
                 'phone_no' => 'required|regex:/^[0-9]{10}$/|numeric',
                 'address' => 'required',
-                'email' => 'required|email',Rule::unique('students', 'email')->ignore(auth()->id()),
+                // 'email' => 'required|email',Rule::unique('students')->ignore($this->route('id'))],
                 'image' =>  'image|mimes:jpeg,png,gif|max:2048',
                 'gender' => ['required', Rule::in(['Male', 'Female'])],
-                'dob' => 'required|date'           
-             ];
+                'dob' => 'required|date',
+                'email'=>Rule::unique('students')->ignore($this->route('student')),
+                    
+            ];
+
+            
+
+            return $rules;
         }
 
         return [];
     }
 
-    public function make_student(){
-        
+    public function make_student()
+    {
     }
 }
