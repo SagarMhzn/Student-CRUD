@@ -119,16 +119,16 @@
                             <!-- One "tab" for each step in the form: -->
                             <div class="tab">
                                 <h3>Student Details</h3>
-                                <p>Name<input placeholder="Name" onchange="this.className = ''" name="name"
+                                <p>Name<input placeholder="Name" onchange="this.className = ''" name="name" value="{{ old('name') }}"
                                         type="text" class="name"></p>
                                 <span id="name" class="error"></span>
-                                <p>Phone No.<input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
+                                <p>Phone No.<input placeholder="Phone No." oninput="this.className = ''" name="phone_no" value="{{ old('phone_no') }}"
                                         class="phone_no" type="text"></p>
                                 <span id="phone_no" class="error"></span>
-                                <p>Address<input placeholder="Address" oninput="this.className = ''" name="address"
+                                <p>Address<input placeholder="Address" oninput="this.className = ''" name="address" value="{{ old('address') }}"
                                         type="text" class="address"></p>
                                 <span id="address" class="error"></span>
-                                <p>E-mail<input placeholder="E-mail" oninput="this.className = ''" name="email"
+                                <p>E-mail<input placeholder="E-mail" oninput="this.className = ''" name="email" value="{{ old('email') }}"
                                         type="email" class="email"></p>
                                 <span id="email" class="error"></span>
                                 <p>Image
@@ -148,7 +148,7 @@
                                 <p>
                                 <fieldset class="form-group" style="margin-bottom:1rem">
                                     <div class="row">
-                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" class="gender">Gender
+                                        <legend class="col-form-label col-sm-2 pt-0" name="gender" class="gender" value="{{ old('gender') }}">Gender
                                         </legend>
                                         <div class="col-sm-10">
 
@@ -177,7 +177,7 @@
                                 </p>
                                 <p>
                                 <div class="form-group row">
-                                    <label for="date" class="col-sm-2 col-form-label">Date of Birth</label>
+                                    <label for="date" class="col-sm-2 col-form-label" value="{{ old('dob') }}">Date of Birth</label>
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control" name="dob" class="dob"
                                             placeholder="YYYY/MM/DD">

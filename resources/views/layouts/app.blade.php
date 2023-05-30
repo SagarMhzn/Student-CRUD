@@ -104,32 +104,31 @@
 
 
 
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                aria-labelledby="offcanvasExampleLabel">
+            {{-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel"> --}}
+            <div class="offcanvas offcanvas-start" style="max-width:200px;" data-bs-scroll="true"
+                data-bs-backdrop="false" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Shortcuts</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
+                    
                     <div>
                         <a href="{{ route('user.profile') }}"
                             style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Profile</a>
                     </div>
+
                     <div>
-                        <div>
-                            <a href="{{ route('view-students') }} " style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Student List</a>
+                        <a href="{{ route('view-students') }} "
+                            style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Student List</a>
 
-                        </div>
-                        <div>
-                            <div >
-                                <a href="{{ route('student.create') }}" style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Add more Students</a>
-                            </div>
-
-
-
-
-                        </div>
                     </div>
+
+                    <div>
+                        <a href="{{ route('student.create') }}"
+                            style="text-decoration:none; color:rgb(112, 112, 112); font-size: 20px">Add Students</a>
+                    </div>
+
                 </div>
             </div>
             <x-alerts-box>
@@ -137,7 +136,7 @@
             </x-alerts-box>
             @yield('content')
 
-            
+
         </main>
     </div>
 

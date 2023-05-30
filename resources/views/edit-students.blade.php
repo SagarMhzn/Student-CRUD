@@ -85,10 +85,10 @@
                             }
 
                             /* [type="file"] {
-                                            height: 0;
-                                            width: 0;
-                                            overflow: hidden;
-                                        } */
+                                                height: 0;
+                                                width: 0;
+                                                overflow: hidden;
+                                            } */
 
                             [type="file"]+label {
                                 font-family: sans-serif;
@@ -106,8 +106,9 @@
                                 color: #f44336;
                             }
 
-                            .errors{    
-                                color; red;
+                            .errors {
+                                color;
+                                red;
                             }
                         </style>
                         <form id="regForm" action="{{ route('student.update', ['student' => $student->id]) }}"
@@ -126,34 +127,45 @@
                             <!-- One "tab" for each step in the form: -->
                             <div class="tab1">
                                 <h3>Student Details</h3>
-                                <p>
+                                <p>Name:
                                     <input placeholder="Name" onchange="this.className = ''" name="name" type="text"
                                         value="{{ $student->name }}">
                                 </p>
                                 <span id="name" class="error"></span>
 
-                                <p><input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
+                                <p>Phone No.:
+                                    <input placeholder="Phone No." oninput="this.className = ''" name="phone_no"
                                         value="{{ $student->phone_no }}" type="text">
 
                                 </p>
                                 <span id="phone_no" class="error"></span>
-                                <p><input placeholder="Address" oninput="this.className = ''" name="address" type="text"
+                                <p>
+                                    Address:<input placeholder="Address" oninput="this.className = ''" name="address" type="text"
                                         value="{{ $student->address }}">
 
                                 </p>
                                 <span id="address" class="error"></span>
-                                <p><input placeholder="E-mail" oninput="this.className = ''" name="email" type="email"
+                                <p>E-mail:<input placeholder="E-mail" oninput="this.className = ''" name="email" type="email"
                                         id="email" value="{{ $student->email }}">
 
                                 </p>
                                 <span id="email" class="error"></span>
 
-                                <p>Image
+                                <p>Image:
                                 <div class="old_image-vs-new_image " style="display:flex; justify-content: space-around;">
-                                    <div style="display: block"><img src="{{ url('public/Image/' . $student->image) }}"
-                                            width="200px" height="100px" alt="" style="object-fit: cover;">
-                                        <figcaption style="text-align: center;">Previous Image</figcaption>
-                                    </div>
+
+                                    @if ($student->image)
+                                        <div style="display: block"><img src="{{ url('public/Image/' . $student->image) }}"
+                                                width="200px" height="100px" alt="" style="object-fit: cover;">
+                                            <figcaption style="text-align: center;">Previous Image</figcaption>
+                                        </div>
+                                    @else
+                                        <div style="display: block"><img src="{{ url('public/Image/no-image.jpg') }}"
+                                                width="200px" height="100px" alt="" style="object-fit: cover;">
+                                            <figcaption style="text-align: center;">Previous Image</figcaption>
+                                        </div>
+                                    @endif
+
 
                                     {{-- <input type="file" class="form-control" name="image" id="image"
                                             id="image" style="margin-bottom:1rem" accept=".jpg,.gif,.png" /> --}}
@@ -210,6 +222,7 @@
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-2 col-form-label">Date of Birth</label>
                                     <div class="col-sm-10">
+                                        
                                         <input type="date" class="form-control" id="dob" name="dob"
                                             class="dob input" value="{{ $student->dob }}" placeholder="YYYY/MM/DD">
 

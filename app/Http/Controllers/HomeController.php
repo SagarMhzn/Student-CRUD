@@ -27,7 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $data = Student::count();
+        // dd($data);
+        return view('home', compact('data'));
     }
 
     public function userProfile()

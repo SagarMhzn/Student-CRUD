@@ -21,9 +21,16 @@
                                 <div class="student_profile" style="display:flex">
 
                                     <div class="student-image" style="margin:2rem">
-
-                                        <img src="{{ url('public/Image/' . $data->image) }}" width="500px" height="300px"
-                                            style="object-fit: cover" alt="Student Image" />
+                                        @if($data->image)
+                                        
+                                        <img src="{{ url('public/Image/' . $data->image) }}"
+                                            width="500px" height="300px" style="object-fit: cover" alt="Student Image" />
+                                        
+                                        @else
+                                        <img src="{{ url('public/Image/no-image.jpg') }}"
+                                            width="500px" height="300px" style="object-fit: cover" alt="Student Image" />
+                                            
+                                        @endif
 
                                     </div>
 
@@ -51,14 +58,14 @@
                                                         href="{{ route('student.edit', ['student' => $data->id]) }}"
                                                         style="text-decoration: none;color:white; margin-right:0px">Edit</a></button>
                                                 {{-- <button class="delete-student-details btn btn-danger"><a href="{{ route('student.destroy',['student'=>$data->id]) }}" style="text-decoration: none;color:white">Delete</a></button></td> --}}
-                                                
-                                                    <form action="{{ route('student.destroy', ['student' => $data->id]) }}"
-                                                        method="POST">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="delete-student-details btn btn-danger">Delete</button>
-                                                    </form>
-                                                
+
+                                                <form action="{{ route('student.destroy', ['student' => $data->id]) }}"
+                                                    method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="delete-student-details btn btn-danger">Delete</button>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
