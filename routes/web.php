@@ -34,9 +34,14 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
+    // Route::get('/', function () {
+    //     return view('home');
+    // });
 
     Route::controller(HomeController::class)->group(function () {
         Route::get('/home', 'index')->name('home');
+        Route::get('/', 'index')->name('home');
+
         Route::get('/profile', 'userProfile')->name('user.profile');
         Route::get('/password/update', 'userPassword')->name('user.password');
 

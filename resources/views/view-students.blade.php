@@ -5,7 +5,20 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('List of Students') }}</div>
+
+
+                    <div class="card-header" style="display:flex; justify-content: space-around;">
+                        <div >
+                            <h3>{{ __('List of Students') }}</h3>
+                        </div>
+
+                        <div>
+                            <h3><a href="{{ route('student.create') }}"
+                                ><i class="bi bi-plus-square btn btn-warning" style="color:white"></i></a></h3>
+                        </div>
+                    </div>
+
+
 
                     <div class="card-body">
                         @if (session('status'))
@@ -41,20 +54,25 @@
                                             <td>{{ $student->dob }}</td>
                                             <td>
                                                 <div class="d-flex ">
-                                                <button class="view-more-details btn btn-secondary" style="margin-right: 2px"><a
-                                                        href="{{ route('view-profile', ['id' => $student->id]) }}"
-                                                        style="text-decoration: none;color:white">View More</a></button>
-                                                <button class="edit-student-details btn btn-warning" style="margin-right: 2px"><a
-                                                        href="{{ route('student.edit', ['student' => $student->id]) }}"
-                                                        style="text-decoration: none;color:white" style="margin-right: 2px">Edit</a></button>
-                                                <form action="{{ route('student.destroy', ['student' => $student->id]) }}"
-                                                    method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="delete-student-details btn btn-danger">Delete</button>
-                                                </form>
+                                                    <button class="view-more-details btn btn-secondary"
+                                                        style="margin-right: 2px"><a
+                                                            href="{{ route('view-profile', ['id' => $student->id]) }}"
+                                                            style="text-decoration: none;color:white">View More</a></button>
+                                                    <button class="edit-student-details btn btn-warning"
+                                                        style="margin-right: 2px"><a
+                                                            href="{{ route('student.edit', ['student' => $student->id]) }}"
+                                                            style="text-decoration: none;color:white"
+                                                            style="margin-right: 2px">Edit</a></button>
+                                                    <form
+                                                        action="{{ route('student.destroy', ['student' => $student->id]) }}"
+                                                        method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button
+                                                            class="delete-student-details btn btn-danger">Delete</button>
+                                                    </form>
 
-                                            </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
