@@ -177,7 +177,7 @@
                                 </p>
                                 <p>
                                 <div class="form-group row">
-                                    <label for="date" class="col-sm-2 col-form-label" value="{{ old('dob') }}">Date of Birth</label>
+                                    <label for="date" class="col-sm-2 col-form-label" >Date of Birth</label>
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control" name="dob" class="dob"
                                             placeholder="YYYY/MM/DD">
@@ -208,15 +208,15 @@
                                         </tr>
                                     </thead>
                                     <tr>
-                                        <td><input type="text" name="level[]" class="form-control" class="level"
+                                        <td><input type="text" name="level[]" class="form-control" class="level" value="{{ old('level[]') }}"
                                                 placeholder="Level" aria-label="City" style="text-align: center">
                                         </td>
 
-                                        <td><input type="text" name="college[]" class="form-control" class="college"
+                                        <td><input type="text" name="college[]" class="form-control" class="college" value="{{ old('college[]') }}"
                                                 placeholder="College" aria-label="State" style="text-align: center">
                                         </td>
 
-                                        <td><input type="text" name="uni[]" class="form-control" class="uni"
+                                        <td><input type="text" name="uni[]" class="form-control" class="uni" value="{{ old('uni[]') }}"
                                                 placeholder="University/Board" aria-label="State"
                                                 style="text-align: center">
                                         </td>

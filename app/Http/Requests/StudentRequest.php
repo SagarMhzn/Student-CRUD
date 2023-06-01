@@ -65,10 +65,10 @@ class StudentRequest extends FormRequest
                 'gender' => ['required', Rule::in(['Male', 'Female'])],
                 'dob' => 'required|date',
                 
-                'start_date' => 'required',
-                'end_date' => 'required',
+                'startdate' => 'required',
+                'enddate' => 'required',
                 'level' => 'required',
-                'university' => 'required',
+                'uni' => 'required',
                 'college' => 'required',
                 'email' => 'required|unique:students,email'
             ];
@@ -83,7 +83,7 @@ class StudentRequest extends FormRequest
                 'gender' => ['required', Rule::in(['Male', 'Female'])],
                 'dob' => 'required|date',
                 'email'=>Rule::unique('students')->ignore($this->route('student')),
-                    
+                
             ];
 
             
